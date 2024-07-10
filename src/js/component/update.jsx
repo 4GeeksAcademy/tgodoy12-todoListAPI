@@ -34,8 +34,11 @@ const Update = (props) => {
     },[checked])
 
     return (
-        <span className="me-3"><input className="form-check-input" checked={checked} onChange={checkTask} 
-        type="checkbox" value="" id={props.id}/></span>
+        <span className="me-3 d-flex align-items-center">
+            <input className="form-check-input me-3" checked={checked} onChange={checkTask} 
+                type="checkbox" value="" id={props.id}/>
+            <span className={checked ? "text-decoration-line-through" : ""}>{props.label}</span>
+        </span>
     );
 }
 
