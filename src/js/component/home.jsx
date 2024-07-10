@@ -24,8 +24,8 @@ const Home = () => {
 	console.log(listTask);
 
 	//conection with the todo api
+	
 	//create user with POST method
-
 	const createUser = () => {
 		fetch('https://playground.4geeks.com/todo/users/tgodoy', {
 			method: "POST",
@@ -71,25 +71,18 @@ const Home = () => {
 		.then((response) => {
 			console.log(response);
 			if(response.status === 201) {
-				getMyList();
+				// getMyList();
+				return response.json();
 			}
-			return response.json();
-			
 		})
+		.then((data) => {
+			if(data) {
+				setListTask(listTask.concat(data))
+			}
+		})
+			
 		.catch((error) => console.log(error))
 	}
-
-	// const deleteTask = () => {
-	// 	fetch("https://playground.4geeks.com/todo/todos/{id}", {
-	// 		method: "DELETE"	
-	// 	})
-	// 	.then((response) => {
-	// 		console.log(response);
-	// 		return response.json();
-	// 	})
-	// 	.catch((error) => console.log(error))
-
-	// }
 
 	//each time my page is loaded, my user task list is shown 
 	useEffect(() => {
@@ -104,9 +97,11 @@ const Home = () => {
 			
 			<div className="card w-50 mx-auto mt-5">
 				
+				{/* components */}
 				<Input onChange={addTask} value={task} onKeyDown={addListTask}/>
 				<List taskAdded={listTask} setTask={setListTask} getList={getMyList}/>			
 
+				{/* footer: shows the length of the list*/}
 				<div className="card-footer">
 					<div className="items-left">
 						<p className="text-black-50 m-0" style={{ fontSize: "smaller" }}>
